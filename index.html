@@ -5,17 +5,21 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
+    <h1>Astronomy Picture of the Day</h1>
     <div class="container">
       <h2 id="title"></h2>
       <!-- Image Title -->
       <span id="APOD"></span>
       <!-- Image -->
+      <p id="date"></p>
+      <!-- Image Date -->
       <p id="desc"></p>
       <!-- Image Desc -->
       </div>
+      <h3><i>Find a Picture of the Day!</i></h3>
       <form id="form">
         <input 
-          id="date" 
+          id="datein" 
           type="date" 
           placeholder="date"
           title="Please Enter a Valid Date"
@@ -31,9 +35,10 @@
       // Get Element refererences
       const descEl = document.getElementById('desc')
       const formEl = document.getElementById('form')
-      const dateInput = document.getElementById('date')
+      const dateInput = document.getElementById('datein')
       const titleEl = document.getElementById('title')
       const apodEl = document.getElementById('APOD')
+      const dateEl = document.getElementById('date')
 
       // Define event listeners
       formEl.addEventListener('submit', (e) => {
@@ -43,8 +48,9 @@
 
         getAPODByDate(apiKey, date)
           .then((data) => {
-            titleEl.innerHTML = data.title
+            titleEl.innerHTML = `<i>${data.title}</i>`
             apodEl.innerHTML = `<img src="${data.url}">`
+            dateEl.innerHTML = data.date
             descEl.innerHTML = data.explanation 
           }).catch(err => console.log(err.message))
 
