@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Astronomy Picture of the Day</title>
+  </head>
+  <body>
+    <div class="container">
+      <h2 id="title"></h2>
+      <!-- Image Title -->
+      <span id="APOD"></span>
+      <!-- Image -->
+      <p id="desc"></p>
+      <!-- Image Desc -->
+      <form id="form">
+        <input 
+          id="date" 
+          type="date" 
+          placeholder="date"
+          title="Please Enter a Valid Date"
+        >
+        <button type="submit">Search</button>
+      </form>
+    </div>
+
+    <script type='module'>
+      import { getAPODByDate } from './src/index.js'
+      // ------------------------------------------------------
+      // Developer Code
+
+      // Get Element refererences
+      const descEl = document.getElementById('desc')
+      const formEl = document.getElementById('form')
+      const dateInput = document.getElementById('date')
+      const titleEl = document.getElementById('title')
+      const apodEl = document.getElementById('APOD')
+
+      // Define event listeners
+      formEl.addEventListener('submit', (e) => {
+        e.preventDefault()
+        const date = dateInput.value
+        const apiKey = 'GkDO1SK4zRCLsCE4Fu7PWie8r2ZAnOg7SJs4Imnl'
+
+        getAPODByDate(apiKey, date)
+          .then((data) => {
+            titleEl.innerHTML = data.title
+            apodEl.innerHTML = `<img src="${data.url}">`
+            descEl.innerHTML = data.explanation 
+          }).catch(err => console.log(err.message))
+
+      })
+
+      
+    </script>
+  </body>
+</html>
